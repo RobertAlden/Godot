@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://7f0ig01ta264"]
+
+[ext_resource type="Script" path="res://stock_listing_gui.gd" id="1_43e47"]
+[ext_resource type="LabelSettings" uid="uid://eiylonvhlrst" path="res://label_font.tres" id="2_mqro6"]
+
+[sub_resource type="SystemFont" id="SystemFont_bxq80"]
+font_names = PackedStringArray("Fira Code")
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_hxq0f"]
+font_names = PackedStringArray("Fira Code")
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_67vv0"]
+font_names = PackedStringArray("Fira Code")
+multichannel_signed_distance_field = true
+
+[sub_resource type="Theme" id="Theme_spor4"]
+default_font = SubResource("SystemFont_67vv0")
+
+[sub_resource type="SystemFont" id="SystemFont_k324c"]
+font_names = PackedStringArray("Fira Code")
+multichannel_signed_distance_field = true
+
+[node name="StockListingGUI" type="Panel"]
+custom_minimum_size = Vector2(250, 30)
+layout_direction = 1
+anchors_preset = -1
+anchor_left = 0.291667
+anchor_top = 0.46875
+anchor_right = 0.708
+anchor_bottom = 0.531
+offset_right = -99.76
+offset_bottom = 0.119995
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_43e47")
+metadata/_edit_use_anchors_ = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 1
+
+[node name="InfoPanel" type="HBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="SymbolLabel" type="Label" parent="HSplitContainer/InfoPanel"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = SubResource("SystemFont_bxq80")
+theme_override_font_sizes/font_size = 14
+text = "$POG"
+label_settings = ExtResource("2_mqro6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentPrice" type="Label" parent="HSplitContainer/InfoPanel"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = SubResource("SystemFont_hxq0f")
+theme_override_font_sizes/font_size = 14
+text = "$0
+"
+label_settings = ExtResource("2_mqro6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AveragePrice" type="Label" parent="HSplitContainer/InfoPanel"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = SubResource("SystemFont_hxq0f")
+theme_override_font_sizes/font_size = 14
+text = "$0
+"
+label_settings = ExtResource("2_mqro6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TradePanel" type="HBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="LessButton" type="Button" parent="HSplitContainer/TradePanel"]
+layout_mode = 2
+theme = SubResource("Theme_spor4")
+text = "<
+"
+
+[node name="QuantityLabel" type="Label" parent="HSplitContainer/TradePanel"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = SubResource("SystemFont_k324c")
+theme_override_font_sizes/font_size = 14
+text = "0"
+label_settings = ExtResource("2_mqro6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoreButton" type="Button" parent="HSplitContainer/TradePanel"]
+layout_mode = 2
+theme = SubResource("Theme_spor4")
+text = ">
+"
+
+[connection signal="pressed" from="HSplitContainer/TradePanel/LessButton" to="." method="_on_less_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/TradePanel/MoreButton" to="." method="_on_more_button_pressed"]

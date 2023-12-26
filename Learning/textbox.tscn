@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhtoroexecs3q"]
+
+[ext_resource type="Script" path="res://textbox.gd" id="1_bbgy2"]
+[ext_resource type="Texture2D" uid="uid://bhtugvy0orihl" path="res://assets/text-box.png" id="2_3fehw"]
+
+[sub_resource type="SystemFont" id="SystemFont_fw16g"]
+font_names = PackedStringArray("Fira Code")
+font_weight = 850
+subpixel_positioning = 3
+multichannel_signed_distance_field = true
+msdf_pixel_range = 47
+msdf_size = 46
+oversampling = 9.0
+
+[node name="Textbox" type="Node2D"]
+script = ExtResource("1_bbgy2")
+
+[node name="BoxComponents" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture = ExtResource("2_3fehw")
+hframes = 4
+
+[node name="Box" type="Node2D" parent="."]
+position = Vector2(8, 8)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Box"]
+z_index = 2
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 123.0
+offset_bottom = 36.0
+theme_override_colors/default_color = Color(0.0823529, 0.12549, 0.105882, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fw16g")
+theme_override_font_sizes/normal_font_size = 6
+text = "Hey man, get me some goodies!"
+fit_content = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="TextTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TextTimer" to="." method="_on_text_timer_timeout"]

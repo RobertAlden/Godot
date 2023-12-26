@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://7fthn1niiyx1"]
+
+[ext_resource type="Script" path="res://TradeMenu.gd" id="1_ape31"]
+
+[sub_resource type="SystemFont" id="SystemFont_qrtdk"]
+font_names = PackedStringArray("Fira Code")
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_nst0w"]
+font_names = PackedStringArray("Fira Code")
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+
+[sub_resource type="Theme" id="Theme_u1dju"]
+default_font = SubResource("SystemFont_nst0w")
+
+[node name="Panel" type="Panel"]
+offset_left = 45.0
+offset_top = 21.0
+offset_right = 323.0
+offset_bottom = 59.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("1_ape31")
+
+[node name="CashLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 7.0
+offset_right = 195.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = SubResource("SystemFont_qrtdk")
+theme_override_font_sizes/font_size = 21
+text = "$69999"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 68.0
+offset_bottom = 33.0
+theme = SubResource("Theme_u1dju")
+toggle_mode = true
+text = "Trade"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = 10.0
+offset_top = 38.0
+offset_right = 260.0
+offset_bottom = 400.0
+
+[node name="SymbolList" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
+
+[connection signal="toggled" from="Button" to="ScrollContainer/SymbolList" method="_on_button_toggled"]

@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://djxuicd54ai3s"]
+
+[ext_resource type="Script" path="res://QuestItem.gd" id="1_vdj6q"]
+[ext_resource type="LabelSettings" uid="uid://eiylonvhlrst" path="res://label_font.tres" id="2_3e4gi"]
+
+[sub_resource type="SystemFont" id="SystemFont_q8ysu"]
+font_names = PackedStringArray("Fira Code")
+multichannel_signed_distance_field = true
+
+[node name="QuestItem" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -988.0
+offset_bottom = -674.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vdj6q")
+
+[node name="Symbol" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 80.0
+offset_bottom = 30.0
+text = "$STONK"
+label_settings = ExtResource("2_3e4gi")
+
+[node name="Quantity" type="Label" parent="."]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 10.0
+offset_right = 207.0
+offset_bottom = 33.0
+text = "Requested: 0"
+label_settings = ExtResource("2_3e4gi")
+
+[node name="Submit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 6.0
+offset_right = 282.0
+offset_bottom = 36.0
+theme_override_fonts/font = SubResource("SystemFont_q8ysu")
+theme_override_font_sizes/font_size = 13
+disabled = true
+text = "Submit"
+
+[node name="Reward" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 36.0
+offset_right = 105.0
+offset_bottom = 59.0
+text = "Reward: 0
+"
+label_settings = ExtResource("2_3e4gi")
+
+[connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]

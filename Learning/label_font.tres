@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://eiylonvhlrst"]
+
+[sub_resource type="SystemFont" id="SystemFont_kn0fo"]
+font_names = PackedStringArray("Fira Code")
+multichannel_signed_distance_field = true
+
+[resource]
+font = SubResource("SystemFont_kn0fo")
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)

@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://ulolhdrsw2ks"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_qf81v"]
+[ext_resource type="Texture2D" uid="uid://dq4kmfeuiphh8" path="res://assets/Tilemap/tilemap_packed.png" id="1_rrake"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avkf1"]
+
+[sub_resource type="Animation" id="Animation_4q6kc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Helicopter:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ds3gj"]
+resource_name = "hover"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Helicopter:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0), Vector2(0, 2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nr263"]
+_data = {
+"RESET": SubResource("Animation_4q6kc"),
+"hover": SubResource("Animation_ds3gj")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_qf81v")
+speed = 64
+
+[node name="Helicopter" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(0, -15)
+texture = ExtResource("1_rrake")
+hframes = 18
+vframes = 11
+frame = 101
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("1_rrake")
+hframes = 18
+vframes = 11
+frame = 61
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_avkf1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nr263")
+}
