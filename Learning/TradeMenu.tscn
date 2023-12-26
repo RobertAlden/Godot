@@ -1,11 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://7fthn1niiyx1"]
+[gd_scene load_steps=6 format=3 uid="uid://7fthn1niiyx1"]
 
 [ext_resource type="Script" path="res://TradeMenu.gd" id="1_ape31"]
-
-[sub_resource type="SystemFont" id="SystemFont_qrtdk"]
-font_names = PackedStringArray("Fira Code")
-subpixel_positioning = 0
-multichannel_signed_distance_field = true
+[ext_resource type="LabelSettings" uid="uid://eiylonvhlrst" path="res://label_font.tres" id="2_61h3v"]
 
 [sub_resource type="SystemFont" id="SystemFont_nst0w"]
 font_names = PackedStringArray("Fira Code")
@@ -15,50 +11,110 @@ multichannel_signed_distance_field = true
 [sub_resource type="Theme" id="Theme_u1dju"]
 default_font = SubResource("SystemFont_nst0w")
 
-[node name="Panel" type="Panel"]
-offset_left = 45.0
-offset_top = 21.0
-offset_right = 323.0
-offset_bottom = 59.0
-size_flags_horizontal = 4
+[sub_resource type="SystemFont" id="SystemFont_qrtdk"]
+font_names = PackedStringArray("Fira Code")
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+
+[node name="TradeMenu" type="VBoxContainer"]
+offset_right = 270.0
+offset_bottom = 73.0
 size_flags_vertical = 0
 script = ExtResource("1_ape31")
 
-[node name="CashLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 74.0
-offset_top = 7.0
-offset_right = 195.0
-offset_bottom = 34.0
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(270, 40)
+layout_mode = 2
+
+[node name="TradeCashBar" type="HSplitContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/TradeCashBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="Panel/TradeCashBar/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_u1dju")
+toggle_mode = true
+text = "Trade"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Panel/TradeCashBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CashLabel" type="Label" parent="Panel/TradeCashBar/CenterContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = SubResource("SystemFont_qrtdk")
 theme_override_font_sizes/font_size = 21
 text = "$69999"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="ListingGui" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="ListingGui"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ListingGui/Panel"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 5.0
-offset_right = 68.0
-offset_bottom = 33.0
-theme = SubResource("Theme_u1dju")
-toggle_mode = true
-text = "Trade"
+offset_right = 270.0
+offset_bottom = 26.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="ListingGui/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="Symbol" type="Label" parent="ListingGui/Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name |
+"
+label_settings = ExtResource("2_61h3v")
+
+[node name="CurrentPrice" type="Label" parent="ListingGui/Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "$ Now |
+"
+label_settings = ExtResource("2_61h3v")
+
+[node name="AveragePrice" type="Label" parent="ListingGui/Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Avg $ |
+"
+label_settings = ExtResource("2_61h3v")
+
+[node name="Quantity" type="Label" parent="ListingGui/Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Own
+"
+label_settings = ExtResource("2_61h3v")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ListingGui"]
+custom_minimum_size = Vector2(0, 400)
 layout_direction = 2
-layout_mode = 0
-offset_left = 10.0
-offset_top = 38.0
-offset_right = 260.0
-offset_bottom = 400.0
+layout_mode = 2
 
-[node name="SymbolList" type="VBoxContainer" parent="ScrollContainer"]
+[node name="List" type="VBoxContainer" parent="ListingGui/ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-alignment = 1
 
-[connection signal="toggled" from="Button" to="ScrollContainer/SymbolList" method="_on_button_toggled"]
+[connection signal="toggled" from="Panel/TradeCashBar/CenterContainer/Button" to="." method="_on_button_toggled"]

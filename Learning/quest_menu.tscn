@@ -1,29 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://3r3607xk0ohw"]
+[gd_scene load_steps=3 format=3 uid="uid://3r3607xk0ohw"]
 
 [ext_resource type="Script" path="res://quest_menu.gd" id="1_nq64s"]
+[ext_resource type="LabelSettings" uid="uid://eiylonvhlrst" path="res://label_font.tres" id="2_efuv8"]
 
-[node name="QuestMenu" type="Panel"]
+[node name="QuestMenu" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nq64s")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1024.0
-offset_bottom = -689.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nq64s")
 
-[node name="Label" type="Button" parent="."]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 3.0
-offset_right = 66.0
-offset_bottom = 34.0
-text = "Quests
-"
+[node name="Display" type="Button" parent="Panel/CenterContainer"]
+custom_minimum_size = Vector2(76, 36)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 37.0
-offset_right = 93.0
-offset_bottom = 297.0
+[node name="CenterContainer" type="CenterContainer" parent="Panel/CenterContainer/Display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Display/CenterContainer"]
+layout_mode = 2
+text = "Quests"
+label_settings = ExtResource("2_efuv8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestList" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+
+[connection signal="toggled" from="Panel/CenterContainer/Display" to="." method="_on_display_toggled"]

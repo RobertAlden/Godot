@@ -1,29 +1,37 @@
-extends Panel
+extends VBoxContainer
 
 
 var quest_item = preload("res://quest_item.tscn")
-var TradeMenu = null 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  TradeMenu = get_node("/root/World/Level/Player/CanvasLayer/TradeMenu")
-  unique_name_in_owner = true
+  MarketManager.update.connect(expired_stale_quests)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
   pass
   
+
+func expired_stale_quests():
+  for qi in %QuestList.get_children():
+    if not MarketManager.market.has(qi.symbol):
+        qi.queue_free()
+
 func add_quest(symbol,quantity,reward):
   var qi = quest_item.instantiate()
-  $VBoxContainer.add_child(qi)
+  %QuestList.add_child(qi)
   qi.symbol = symbol
   qi.quantity = quantity
   qi.reward = reward
   qi.submitted.connect(complete_quest)
   
-func complete_quest(id):
-  PlayerVars.cash += id.reward
-  var stock_listing = TradeMenu.get_listing(id.symbol)
-  stock_listing.quantity -= id.quantity
-  stock_listing.update_labels()
-  id.queue_free()
+func complete_quest(qid):
+  PlayerVars.cash += qid.reward
+  var tm = get_node("/root/Main/GUI/TradeMenu").get_listing(qid.symbol)
+  if tm != null:
+    tm.remove_purchases(qid.quantity)
+  qid.queue_free()
+
+
+func _on_display_toggled(toggled_on):
+  %QuestList.visible = toggled_on

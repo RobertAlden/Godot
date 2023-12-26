@@ -1,29 +1,34 @@
 extends Node2D
 
 
-@export var minimun_price = 5
-@export var maximun_price = 100
+@export var minimum_price = 5
+@export var maximum_price = 100
 @export var day_length = 10 # seconds
 
 var desired_goods = 6
 var market = {}
 var events = []
-
+var inital_load = false
+var market_timer = null
 var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 signal update
 
 func _ready():
-  var market_timer := Timer.new()
+  market_timer = Timer.new()
   add_child(market_timer)
   market_timer.timeout.connect(simulate)
   market_timer.autostart = true
-  market_timer.one_shot = false
-  market_timer.start(day_length)
+  market_timer.one_shot = true
   simulate()
 
 
 func simulate():
+  if inital_load == false:
+    market_timer.start(0.1)
+    inital_load = true
+  else:
+    market_timer.start(day_length)
   adjust_markets()
   generate_event()
   apply_event_effects()
@@ -67,5 +72,5 @@ func adjust_markets():
     create_competition(generate_symbol(randi_range(3,5)))
 
 func create_competition(symbol):
-  market[symbol] = randi_range(minimun_price,maximun_price)
+  market[symbol] = randi_range(minimum_price,maximum_price)
 

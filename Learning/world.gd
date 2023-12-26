@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  pass # Replace with function body.
+  PlayerVars.player = %Player
 
 
 func get_tiles_at(loc: Vector2, tmap: TileMap, layername: String):
@@ -16,7 +16,7 @@ func get_tiles_at(loc: Vector2, tmap: TileMap, layername: String):
 
 func get_input():
   if Input.get_action_strength("Interact") != 0:
-    var tile = get_tiles_at($Level/Player.global_position, $Level, "buildings")
+    var tile = get_tiles_at(%Player.global_position, $Level, "buildings")
     if tile != null:
       QuestManager.start_quest()
 

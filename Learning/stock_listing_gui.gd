@@ -16,7 +16,7 @@ func update_labels():
   if len(purchases) > 0:
     $HSplitContainer/InfoPanel/AveragePrice.text = "$" + str(ceil(purchases.reduce(func(a,x):return a+x)/len(purchases)))
   else:
-    $HSplitContainer/InfoPanel/AveragePrice.text = "$0"
+    $HSplitContainer/InfoPanel/AveragePrice.text = ""
   if quantity < 0:
     quantity = 0
   $HSplitContainer/TradePanel/QuantityLabel.text = str(quantity)
@@ -26,25 +26,27 @@ func set_symbol_name(s : String):
   symbol_name = s
   update_labels()
 
-
 func purchase(amount: int):
   if PlayerVars.cash - amount*value >= 0:
-    quantity += amount
     PlayerVars.cash -= amount*value
-    var arr = []
-    arr.resize(amount)
-    arr.fill(value)
-    purchases.append_array(arr)
-    update_labels()
-    
+    add_purchases(amount)
 
 func sell(amount: int):
   if quantity >= amount:
-    quantity -= amount
     PlayerVars.cash += amount * value
-    purchases.pop_front()
-    update_labels()
+    remove_purchases(amount)
 
+func add_purchases(amount:int):
+  quantity += amount
+  for i in amount:
+    purchases.push_back(value)
+  update_labels()
+
+func remove_purchases(amount:int):
+  quantity -= amount
+  for i in amount:
+    purchases.pop_front()
+  update_labels()
 
 func _on_less_button_pressed():
   sell(1)

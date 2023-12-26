@@ -8,52 +8,88 @@ font_names = PackedStringArray("Fira Code")
 multichannel_signed_distance_field = true
 
 [node name="QuestItem" type="Panel"]
+custom_minimum_size = Vector2(300, 96)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -988.0
-offset_bottom = -674.0
+offset_right = -976.0
+offset_bottom = -640.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vdj6q")
 
-[node name="Symbol" type="Label" parent="."]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 10.0
-offset_right = 80.0
-offset_bottom = 30.0
-text = "$STONK"
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Info" type="CenterContainer" parent="HSplitContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MarginContainer/Info"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="Symbol" type="Label" parent="HSplitContainer/MarginContainer/Info/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Symbol: $STONK"
 label_settings = ExtResource("2_3e4gi")
 
-[node name="Quantity" type="Label" parent="."]
-layout_mode = 0
-offset_left = 88.0
-offset_top = 10.0
-offset_right = 207.0
-offset_bottom = 33.0
+[node name="Quantity" type="Label" parent="HSplitContainer/MarginContainer/Info/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Requested: 0"
 label_settings = ExtResource("2_3e4gi")
 
-[node name="Submit" type="Button" parent="."]
-layout_mode = 0
-offset_left = 218.0
-offset_top = 6.0
-offset_right = 282.0
-offset_bottom = 36.0
-theme_override_fonts/font = SubResource("SystemFont_q8ysu")
-theme_override_font_sizes/font_size = 13
-disabled = true
-text = "Submit"
-
-[node name="Reward" type="Label" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 36.0
-offset_right = 105.0
-offset_bottom = 59.0
+[node name="Reward" type="Label" parent="HSplitContainer/MarginContainer/Info/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Reward: 0
 "
 label_settings = ExtResource("2_3e4gi")
 
-[connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]
+[node name="Action" type="CenterContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Action"]
+layout_mode = 2
+
+[node name="Submit" type="Button" parent="HSplitContainer/Action/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0.0352941, 0.756863, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_q8ysu")
+theme_override_font_sizes/font_size = 13
+disabled = true
+text = "Deliver"
+
+[node name="Abandon" type="Button" parent="HSplitContainer/Action/VBoxContainer"]
+modulate = Color(1, 0.25098, 0.12549, 1)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_q8ysu")
+theme_override_font_sizes/font_size = 13
+text = "Abandon
+"
+
+[connection signal="pressed" from="HSplitContainer/Action/VBoxContainer/Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="HSplitContainer/Action/VBoxContainer/Abandon" to="." method="_on_abandon_pressed"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqkk2xxe51pj"]
+
+[ext_resource type="PackedScene" uid="uid://dh570p2jd65dk" path="res://level.tscn" id="1_0apbn"]
+[ext_resource type="Script" path="res://world.gd" id="1_bgr8a"]
+[ext_resource type="PackedScene" uid="uid://ulolhdrsw2ks" path="res://player.tscn" id="2_w64jy"]
+[ext_resource type="PackedScene" uid="uid://7fthn1niiyx1" path="res://TradeMenu.tscn" id="4_oqvmo"]
+[ext_resource type="PackedScene" uid="uid://3r3607xk0ohw" path="res://quest_menu.tscn" id="5_0hywu"]
+
+[node name="World" type="Node2D"]
+position = Vector2(648, 400)
+script = ExtResource("1_bgr8a")
+
+[node name="Level" parent="." instance=ExtResource("1_0apbn")]
+position = Vector2(-94, -62)
+
+[node name="Player" parent="Level" instance=ExtResource("2_w64jy")]
+position = Vector2(55, 57)
+
+[node name="Camera2D" type="Camera2D" parent="Level/Player"]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Level/Player"]
+
+[node name="TradeMenu" parent="Level/Player/CanvasLayer" instance=ExtResource("4_oqvmo")]
+offset_left = 32.0
+offset_top = 34.0
+offset_right = 310.0
+offset_bottom = 72.0
+
+[node name="QuestMenu" parent="Level/Player/CanvasLayer" instance=ExtResource("5_0hywu")]
+offset_left = 859.0
+offset_top = 34.0
+offset_right = -174.0
+offset_bottom = -663.0

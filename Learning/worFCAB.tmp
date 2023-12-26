@@ -16,25 +16,17 @@ script = ExtResource("1_bgr8a")
 position = Vector2(-94, -62)
 
 [node name="Player" parent="World/Level" instance=ExtResource("2_w64jy")]
-unique_name_in_owner = true
 position = Vector2(55, 57)
 
 [node name="Camera2D" type="Camera2D" parent="World/Level/Player"]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 
-[node name="GUI" type="CanvasLayer" parent="."]
-
-[node name="QuestMenu" parent="GUI" instance=ExtResource("5_0hywu")]
+[node name="TradeMenu" parent="." instance=ExtResource("4_oqvmo")]
 unique_name_in_owner = true
-offset_left = 322.0
-offset_top = 25.0
-offset_right = -654.0
-offset_bottom = -671.0
 
-[node name="TradeMenu" parent="GUI" instance=ExtResource("4_oqvmo")]
-unique_name_in_owner = true
-offset_left = 46.0
-offset_top = 24.0
-offset_right = -45.964
-offset_bottom = 25.992
+[node name="QuestMenu" parent="." instance=ExtResource("5_0hywu")]
+offset_left = -328.0
+offset_top = -304.5
+offset_right = -1352.0
+offset_bottom = -993.5

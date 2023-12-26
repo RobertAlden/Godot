@@ -33,25 +33,25 @@ func generate_line(greeting, title, request, signoff, tone1, tone2):
   return line
 
 func start_quest():
-  var greeting = greetings.pick_random()
-  var title = titles.pick_random()
-  var item = MarketManager.market.keys().pick_random()
-  var quantity = randi_range(1, 15)
-  active_quests[item] = quantity
-  var reward = ceil(MarketManager.market[item] * quantity * profit_margin)
-  var request = generate_request(item)
-  var signoff = signoffs.pick_random()
-  var tone1 = tones.pick_random()
-  var tone2 = tones.pick_random()
-  var speech = generate_line(greeting, title, request, signoff, tone1, tone2)
-  get_node("/root/World/Level/Player/CanvasLayer/QuestMenu").add_quest(item, quantity, reward)
-  spawn_text(speech)
+  if not textbox_spawned:
+    var greeting = greetings.pick_random()
+    var title = titles.pick_random()
+    var item = MarketManager.market.keys().pick_random()
+    var quantity = randi_range(1, 15)
+    active_quests[item] = quantity
+    var reward = ceil(MarketManager.market[item] * quantity * profit_margin)
+    var request = generate_request(item)
+    var signoff = signoffs.pick_random()
+    var tone1 = tones.pick_random()
+    var tone2 = tones.pick_random()
+    var speech = generate_line(greeting, title, request, signoff, tone1, tone2)
+    get_node("/root/Main/GUI/QuestMenu").add_quest(item, quantity, reward)
+    spawn_text(speech)
 
 func spawn_text(content):
-  if not textbox_spawned:
     var text = textbox.instantiate()  
     add_child(text)
-    text.position = get_node("/root/World/Level/Player").global_position
+    text.position = PlayerVars.player.global_position
     text.content_string = content
     text.create_sprites()
     textbox_spawned = true
